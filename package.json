@@ -8,7 +8,7 @@
     "build": "babel src -d build",
     "start": "node build/index.js",
     "lint": "./node_modules/.bin/eslint src",
-    "test": "mocha --compilers js:babel-register"
+    "test": "mocha --compilers js:babel-register,js:babel-polyfill"
   },
   "repository": {
     "type": "git",
@@ -22,10 +22,13 @@
   "homepage": "https://github.com/reganmeloche/spotify-rating#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "pg": "^7.4.1",
+    "uuid": "^3.2.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.26.0",

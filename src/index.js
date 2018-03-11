@@ -9,14 +9,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
-app.get('/test', (req, res) => {
-  try {
-    const result = { text: 'Hello world!' };
-    res.status(200).send(result);
-  } catch (err) {
-    res.status(500).send(err);
-  }
-});
+require('./handlers/_routes').default(app);
 
 // Start the server
 const server = app.listen(app.get('port'), () => {
