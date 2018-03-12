@@ -9,7 +9,7 @@ CREATE TABLE public.user_ratings
     rating SMALLINT not null,
     create_date timestamp not null, 
     comments text,
-    fave_songs jsonb,
+    fave_songs text[],
     CONSTRAINT ratings_pkey PRIMARY KEY (user_id, rating_id)
 )
 WITH (
