@@ -1,3 +1,4 @@
+// this is required for using async-await
 require('babel-polyfill');
 
 import express from 'express';
