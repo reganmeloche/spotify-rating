@@ -1,17 +1,35 @@
+import express from 'express';
+import bodyParser from 'body-parser';
+import cookieSession from 'cookie-session';
+import passport from 'passport';
+
 // this is required for using async-await
 require('babel-polyfill');
 
-import express from 'express';
-import bodyParser from 'body-parser';
+const keys = require('../config/keys');
 
 const app = express();
+
+// Setup session
+const { sessionHours } = keys;
+app.use(cookieSession({
+  maxAge: sessionHours * 60 * 60 * 1000,
+  keys: [keys.cookieKey],
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Setup
 app.set('port', (process.env.PORT || 7007));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.get('/', (req, res) => {
+  res.status(200).json({ home: 'hello there' });
+});
+
 // Routes
+require('./lib/passport');
 require('./handlers/_routes').default(app);
 
 // Start the server
