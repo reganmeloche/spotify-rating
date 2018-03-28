@@ -10,6 +10,9 @@ chai.use(chaiHttp);
 const testUser = {
   profileId: 'abcd1234',
   email: 'test@test.com',
+  accessToken: 'fake_access_token',
+  expiresIn: 3200,
+  refreshToken: 'fake_refresh_token',
 };
 let createdUser;
 

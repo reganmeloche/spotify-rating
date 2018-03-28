@@ -9,3 +9,9 @@ export function ValidationError(message) {
   this.stack = (new Error()).stack;
 }
 ValidationError.prototype = Object.create(Error.prototype);
+
+export function AuthError(message) {
+  this.message = message || 'Authentication Error!';
+  this.stack = (new Error()).stack;
+}
+ValidationError.prototype = Object.create(Error.prototype);

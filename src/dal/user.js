@@ -1,7 +1,7 @@
 import { queryNone, queryOne } from './sqlHelper';
 
 export default class User {
-  static insert(model) {
+  static async insert(model) {
     const myQuery = `
       INSERT INTO users (
         user_id,

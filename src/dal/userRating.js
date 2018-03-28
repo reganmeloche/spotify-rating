@@ -1,7 +1,7 @@
 import { queryAll, queryNone, queryOne } from './sqlHelper';
 
 export default class UserRating {
-  static insert(userId, model) {
+  static async insert(userId, model) {
     const myQuery = `
       INSERT INTO user_ratings (
         user_id,
@@ -28,7 +28,7 @@ export default class UserRating {
     return queryNone(myQuery, qVals);
   }
 
-  static update(userId, ratingId, model) {
+  static async update(userId, ratingId, model) {
     const myQuery = `
       UPDATE user_ratings 
       SET album_name = $3,
