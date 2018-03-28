@@ -16,6 +16,9 @@ const testRating = {
 let createdRating;
 let userId;
 
+// Tests are broken right now
+// Need a way to authenticate throughout the tests
+
 describe('Set up user', () => {
   const testUser = {
     profileId: 'abcd1234',

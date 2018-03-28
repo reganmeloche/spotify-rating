@@ -1,15 +1,10 @@
+import axios from 'axios';
+import { ensureAuthenticated, getToken } from '../lib/utilities';
+import keys from '../../config/keys';
+
 const passport = require('passport');
 
-const scope = ['user-read-email', 'user-read-private'];
-
-// Simple route middleware to ensure user is authenticated.
-//   Use this route middleware on any resource that needs to be protected.  If
-//   the request is authenticated (typically via a persistent login session),
-//   the request will proceed. Otherwise, the user will be redirected
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { next(); }
-  res.redirect('/');
-}
+const scope = ['user-read-email', 'user-read-private', 'user-library-read'];
 
 export default function (app) {
   app.get('/auth', passport.authenticate('spotify', { scope }));
@@ -26,5 +21,26 @@ export default function (app) {
   app.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/');
+  });
+
+  app.get('/profile', getToken, async (req, res) => {
+    let result;
+    let status = 400;
+    if (req.validToken) {
+      try {
+        const tokenRes = await axios({
+          method: 'get',
+          url: `${keys.spotifyRoot}/v1/me`,
+          headers: { Authorization: `Bearer ${req.validToken}` },
+        });
+        result = tokenRes.data;
+        status = 200;
+      } catch (err) {
+        result = err;
+      }
+    } else {
+      result = { error: 'no token' };
+    }
+    res.status(status).json(result);
   });
 }

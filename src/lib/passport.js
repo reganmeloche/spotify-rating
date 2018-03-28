@@ -31,6 +31,9 @@ passport.use(new SpotifyStrategy(
       user = await Users.findOrCreate({
         profileId: profile.id,
         email: profile.emails[0].value,
+        accessToken,
+        refreshToken,
+        expiresIn,
       });
     } catch (error) {
       err = error;
