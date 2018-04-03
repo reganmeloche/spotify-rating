@@ -9,4 +9,5 @@ module.exports = {
   host: process.env.host,
   sessionHours: 1,
   spotifyRoot: 'https://api.spotify.com',
+  webHost: process.env.WEB_HOST,
 };

@@ -4,7 +4,7 @@ import keys from '../../config/keys';
 import Users from './user';
 
 export default class Albums {
-  static async getRecent(userId, max = 20) {
+  static async getRecent(userId, max = 100) {
     let result = [];
     const accessToken = await Users.checkValidToken(userId);
     let url = `${keys.spotifyRoot}/v1/me/albums?limit=50`;

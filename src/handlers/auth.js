@@ -10,17 +10,16 @@ export default function (app) {
   app.get('/auth', passport.authenticate('spotify', { scope }));
 
   app.get('/auth/callback', passport.authenticate('spotify', { failureRedirect: '/' }), (req, res) => {
-    // Successful authentication, redirect home.
-    res.redirect('/user');
+    res.redirect(keys.webHost);
   });
 
-  app.get('/user', ensureAuthenticated, (req, res) => {
+  app.get('/api/user', ensureAuthenticated, (req, res) => {
     res.status(200).json({ user: req.user });
   });
 
-  app.get('/logout', (req, res) => {
+  app.get('/api/logout', (req, res) => {
     req.logout();
-    res.redirect('/');
+    res.redirect(keys.webHost);
   });
 
   app.get('/profile', getToken, async (req, res) => {

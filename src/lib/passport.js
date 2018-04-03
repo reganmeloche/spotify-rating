@@ -27,10 +27,14 @@ passport.use(new SpotifyStrategy(
   async (accessToken, refreshToken, expiresIn, profile, done) => {
     let err = null;
     let user;
+    let email = '';
+    if (profile.emails && profile.emails.length > 0) {
+      email = profile.emails[0].value;
+    }
     try {
       user = await Users.findOrCreate({
         profileId: profile.id,
-        email: profile.emails[0].value,
+        email,
         accessToken,
         refreshToken,
         expiresIn,
