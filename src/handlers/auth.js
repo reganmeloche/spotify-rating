@@ -10,6 +10,7 @@ export default function (app) {
   app.get('/auth', passport.authenticate('spotify', { scope }));
 
   app.get('/auth/callback', passport.authenticate('spotify', { failureRedirect: '/' }), (req, res) => {
+    console.log('AUTH CALLBACK...redirecting');
     res.redirect(keys.webHost);
   });
 
