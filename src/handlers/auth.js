@@ -14,6 +14,7 @@ export default function (app) {
   });
 
   app.get('/api/user', ensureAuthenticated, (req, res) => {
+    console.log('GETTING USER', req.user);
     res.status(200).json({ user: req.user });
   });
 
