@@ -12,12 +12,9 @@ export function handleError(err) {
 
 export function ensureAuthenticated(req, res, next) {
   console.log('CHECKING AUTH', req.isAuthenticated());
-  console.log('HEaders', req.headers);
   if (req.isAuthenticated()) {
-    console.log('IS AUTH, going home');
     next();
   } else {
-    console.log('NOT AUTHD ,redirect to root');
     res.redirect('/');
   }
 }
