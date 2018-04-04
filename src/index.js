@@ -12,7 +12,7 @@ const app = express();
 
 // Setup session
 const { sessionHours } = keys;
-app.enable('trust proxy');
+app.enable('trust proxy', true);
 app.use(cookieSession({
   maxAge: sessionHours * 60 * 60 * 1000,
   keys: [keys.cookieKey],
