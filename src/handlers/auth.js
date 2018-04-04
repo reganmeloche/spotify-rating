@@ -11,7 +11,7 @@ export default function (app) {
 
   app.get('/auth/callback', passport.authenticate('spotify', { failureRedirect: '/' }), (req, res) => {
     console.log('AUTH CALLBACK...redirecting');
-    res.redirect(keys.webHost + '/ratings');
+    res.redirect(keys.webHost);
   });
 
   app.get('/api/user', ensureAuthenticated, (req, res) => {
