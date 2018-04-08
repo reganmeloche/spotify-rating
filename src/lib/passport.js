@@ -7,14 +7,19 @@ const SpotifyStrategy = require('passport-spotify').Strategy;
 const callbackURL = `${keys.host}/auth/callback`;
 
 passport.serializeUser((user, done) => {
-  done(null, user.userId);
+  console.log('SERIALIZE', user);
+  done(null, user);
+  //done(null, user.userId);
 });
 
-passport.deserializeUser((userId, done) => {
-  Users.getByUserId(userId)
+passport.deserializeUser((user, done) => {
+  console.log('attempting to deserialize: ', user);
+  Users.getByUserId(user.userId)
     .then((user) => {
+      console.log('DESERIALIZE', user);
       done(null, user);
     });
+    
 });
 
 passport.use(new SpotifyStrategy(
@@ -22,8 +27,6 @@ passport.use(new SpotifyStrategy(
     clientID: keys.clientId,
     clientSecret: keys.clientSecret,
     callbackURL,
-    passReqToCallback : true,
-    // proxy: true, // maybe remove
   },
   async (accessToken, refreshToken, expiresIn, profile, done) => {
     let err = null;

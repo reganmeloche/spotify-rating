@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import cookieSession from 'cookie-session';
 import passport from 'passport';
 
@@ -9,6 +10,9 @@ require('babel-polyfill');
 const keys = require('../config/keys');
 
 const app = express();
+app.use(cookieParser(keys.cookieKey));
+
+require('./lib/passport');
 
 // Setup session
 const { sessionHours } = keys;
@@ -30,7 +34,6 @@ app.get('/', (req, res) => {
 });
 
 // Routes
-require('./lib/passport');
 require('./handlers/_routes').default(app);
 
 // Start the server

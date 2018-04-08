@@ -29,8 +29,16 @@ export default function (app) {
     res.status(200).json({ user: req.user });
   });
 
-  app.get('/api/logout', (req, res) => {
+  app.get('/api/logout', async (req, res) => {
     req.logout();
+    try {
+      const cookieDelete = await axios({
+        method: 'delete',
+        url: `${keys.webHost}/cookie`,
+      });
+    } catch (err) {
+      console.log('could not delete cookie on web: ', err);
+    }
     res.redirect(keys.webHost);
   });
 
