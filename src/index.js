@@ -27,7 +27,7 @@ const corsOptions = {
 
 // Setup session
 const { sessionHours } = keys;
-app.enable('trust proxy', 1);
+//app.enable('trust proxy', 1);
 app.use(cookieSession({
   maxAge: sessionHours * 60 * 60 * 1000,
   keys: [keys.cookieKey],
