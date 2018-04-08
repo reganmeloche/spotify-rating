@@ -10,6 +10,7 @@ export default function (app) {
   app.get('/auth', passport.authenticate('spotify', { scope }));
 
   app.get('/auth/callback', passport.authenticate('spotify', { failureRedirect: '/' }), async (req, res) => {
+    console.log('callback cookie: ', req.headers.cookie);
     try {
       const cookieSet = await axios({
         method: 'post',
