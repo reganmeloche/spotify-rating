@@ -9,7 +9,7 @@ export default class UserRating {
         album_name,
         artist,
         create_date,
-        listen_date
+        listen_date,
         rating,
         comments,
         fave_songs
