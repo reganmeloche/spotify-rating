@@ -9,8 +9,20 @@ const scope = ['user-read-email', 'user-read-private', 'user-library-read'];
 export default function (app) {
   app.get('/auth', passport.authenticate('spotify', { scope }));
 
-  app.get('/auth/callback', passport.authenticate('spotify', { failureRedirect: '/' }), (req, res) => {
-    console.log('cookie', req.headers.cookie);
+  app.get('/auth/callback', passport.authenticate('spotify', { failureRedirect: '/' }), async (req, res) => {
+    console.log('callback cookie: ', req.headers.cookie);
+
+    try {
+      const cookieSet = await axios({
+        method: 'post',
+        url: `${keys.webHost}/cookie`,
+        headers: {
+          cookie: req.headers.cookie,
+        },
+      });
+    } catch (err) {
+      console.log('could not set cookie on web', err);
+    }
     res.redirect(keys.webHost);
   });
 
