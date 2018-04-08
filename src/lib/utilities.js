@@ -11,8 +11,6 @@ export function handleError(err) {
 }
 
 export function ensureAuthenticated(req, res, next) {
-  console.log('REQ', Object.keys(req.headers), req.headers.cookie);
-  console.log('CHECKING AUTH', req.isAuthenticated());
   if (req.isAuthenticated()) {
     next();
   } else {
