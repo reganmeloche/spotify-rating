@@ -17,6 +17,7 @@ export default class Ratings {
       albumName: model.albumName,
       artist: model.artist,
       createDate: new Date(),
+      listenDate: model.listenDate,
       rating: model.rating,
       comments: model.comments,
       faveSongs: model.faveSongs,
@@ -32,6 +33,7 @@ export default class Ratings {
     const updatedRating = {
       albumName: model.albumName,
       artist: model.artist,
+      listenDate: model.listenDate,
       rating: model.rating,
       comments: model.comments,
       faveSongs: model.faveSongs,

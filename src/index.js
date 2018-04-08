@@ -3,8 +3,6 @@ import bodyParser from 'body-parser';
 import cookieSession from 'cookie-session';
 import passport from 'passport';
 
-const cors = require('cors');
-
 // this is required for using async-await
 require('babel-polyfill');
 
@@ -12,22 +10,8 @@ const keys = require('../config/keys');
 
 const app = express();
 
-const whitelist = [keys.webHost];
-const corsOptions = {
-  origin: (origin, callback) => {
-    console.log('ORIGIN', origin);
-    if (whitelist.indexOf(origin) !== -1 || origin == undefined) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-};
-// app.use(cors(corsOptions));
-
 // Setup session
 const { sessionHours } = keys;
-//app.enable('trust proxy', 1);
 app.use(cookieSession({
   maxAge: sessionHours * 60 * 60 * 1000,
   keys: [keys.cookieKey],

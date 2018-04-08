@@ -23,6 +23,7 @@ CREATE TABLE public.user_ratings
     album_name text not null,
     artist text not null,
     rating SMALLINT not null,
+    listen_date timestamp with time zone not null,
     create_date timestamp with time zone not null, 
     comments text,
     fave_songs text[],

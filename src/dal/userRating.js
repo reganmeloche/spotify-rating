@@ -9,11 +9,12 @@ export default class UserRating {
         album_name,
         artist,
         create_date,
+        listen_date
         rating,
         comments,
         fave_songs
       )
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);
     `;
     const qVals = [
       userId,
@@ -21,6 +22,7 @@ export default class UserRating {
       model.albumName,
       model.artist,
       model.createDate,
+      model.listenDate,
       model.rating,
       model.comments,
       model.faveSongs,
@@ -34,8 +36,9 @@ export default class UserRating {
       SET album_name = $3,
           artist = $4,
           rating = $5,
-          comments = $6,
-          fave_songs = $7
+          listen_date = $6,
+          comments = $7,
+          fave_songs = $8
       WHERE user_id = $1
       AND   rating_id = $2;
     `;
@@ -45,6 +48,7 @@ export default class UserRating {
       model.albumName,
       model.artist,
       model.rating,
+      model.listenDate,
       model.comments,
       model.faveSongs,
     ];
@@ -95,6 +99,7 @@ export default class UserRating {
       albumName: dbModel.album_name,
       artist: dbModel.artist,
       createDate: dbModel.create_date,
+      listenDate: dbModel.listen_date,
       rating: dbModel.rating,
       comments: dbModel.comments,
       faveSongs: dbModel.fave_songs,
