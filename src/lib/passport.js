@@ -22,6 +22,7 @@ passport.use(new SpotifyStrategy(
     clientID: keys.clientId,
     clientSecret: keys.clientSecret,
     callbackURL,
+    passReqToCallback : true,
     // proxy: true, // maybe remove
   },
   async (accessToken, refreshToken, expiresIn, profile, done) => {
