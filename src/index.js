@@ -20,6 +20,7 @@ app.use(cookieSession({
   maxAge: sessionHours * 60 * 60 * 1000,
   keys: [keys.cookieKey],
   secure: true,
+  httpOnly:false,
 }));
 app.use(passport.initialize());
 app.use(passport.session());
