@@ -20,7 +20,7 @@ export default function (app) {
         },
       });
     } catch (err) {
-      console.log('could not set cookie on web', err);
+      console.log('could not set cookie on web: ', err);
     }
     res.redirect(keys.webHost);
   });
