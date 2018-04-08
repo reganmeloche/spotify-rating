@@ -6,6 +6,8 @@ import { handleError, ensureAuthenticated } from '../lib/utilities';
 export default function (app) {
   app.post('/api/rating', ensureAuthenticated, async (req, res) => {
     try {
+      console.log('REQ', Object.keys(req));
+      console.log('REQHEADERS', req.headers);
       console.log('CREATE ALBUM HANDLER', req.body);
       const result = await Ratings.create(req.user.userId, req.body);
       res.status(201).send(result);
