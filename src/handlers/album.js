@@ -1,10 +1,10 @@
 import Albums from '../lib/album';
-import { handleError, ensureAuthenticated } from '../lib/utilities';
+import { handleError } from '../lib/utilities';
 
 export default function (app) {
-  app.get('/api/albums', ensureAuthenticated, async (req, res) => {
+  app.get('/api/albums', async (req, res) => {
     try {
-      const result = await Albums.getRecent(req.user.userId);
+      const result = await Albums.getRecent(req.userId);
       res.status(200).send(result);
     } catch (err) {
       handleError(err);

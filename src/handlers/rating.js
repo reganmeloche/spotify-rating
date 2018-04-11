@@ -1,15 +1,12 @@
 import Ratings from '../lib/rating';
 import { NotFound, ValidationError } from '../lib/errors';
-import { handleError, ensureAuthenticated } from '../lib/utilities';
+import { handleError } from '../lib/utilities';
 
 // Will probably eventually get the user from the header
 export default function (app) {
-  app.post('/api/rating', ensureAuthenticated, async (req, res) => {
+  app.post('/api/rating', async (req, res) => {
     try {
-      console.log('REQ', Object.keys(req));
-      //console.log('REQHEADERS', req.headers);
-      //console.log('CREATE ALBUM HANDLER', req.body);
-      const result = await Ratings.create(req.user.userId, req.body);
+      const result = await Ratings.create(req.userId, req.body);
       res.status(201).send(result);
     } catch (err) {
       handleError(err);
@@ -20,9 +17,9 @@ export default function (app) {
     }
   });
 
-  app.get('/api/rating', ensureAuthenticated, async (req, res) => {
+  app.get('/api/rating', async (req, res) => {
     try {
-      const result = await Ratings.getAll(req.user.userId);
+      const result = await Ratings.getAll(req.userId);
       res.status(200).send(result);
     } catch (err) {
       handleError(err);
@@ -30,9 +27,10 @@ export default function (app) {
     }
   });
 
-  app.get('/api/rating/:rating_id', ensureAuthenticated, async (req, res) => {
+  app.get('/api/rating/:rating_id', async (req, res) => {
     try {
-      const result = await Ratings.getById(req.user.userId, req.params.rating_id);
+      console.log('USER', req.userId);
+      const result = await Ratings.getById(req.userId, req.params.rating_id);
       res.status(200).send(result);
     } catch (err) {
       handleError(err);
@@ -43,9 +41,9 @@ export default function (app) {
     }
   });
 
-  app.put('/api/rating/:rating_id', ensureAuthenticated, async (req, res) => {
+  app.put('/api/rating/:rating_id', async (req, res) => {
     try {
-      const result = await Ratings.update(req.user.userId, req.params.rating_id, req.body);
+      const result = await Ratings.update(req.userId, req.params.rating_id, req.body);
       res.status(200).send(result);
     } catch (err) {
       handleError(err);
@@ -56,9 +54,9 @@ export default function (app) {
     }
   });
 
-  app.delete('/api/rating/:rating_id', ensureAuthenticated, async (req, res) => {
+  app.delete('/api/rating/:rating_id', async (req, res) => {
     try {
-      await Ratings.deleteRating(req.user.userId, req.params.rating_id);
+      await Ratings.deleteRating(req.userId, req.params.rating_id);
       res.status(200).send();
     } catch (err) {
       handleError(err);

@@ -11,7 +11,6 @@ export default class Ratings {
 
   static async create(userId, model) {
     Ratings.validate(model);
-    console.log('CREATING ALBUM', model);
     const newRating = {
       ratingId: uuid(),
       albumName: model.albumName,

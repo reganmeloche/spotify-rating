@@ -3,7 +3,7 @@ import { NotFound, ValidationError } from '../lib/errors';
 import { handleError } from '../lib/utilities';
 
 export default function (app) {
-  app.post('/user', async (req, res) => {
+  app.post('/api/user', async (req, res) => {
     try {
       const result = await Users.create(req.body);
       res.status(201).send(result);
@@ -16,9 +16,22 @@ export default function (app) {
     }
   });
 
-  app.get('/user/:user_id', async (req, res) => {
+  app.get('/api/user/:user_id', async (req, res) => {
     try {
       const result = await Users.getByUserId(req.params.user_id);
+      res.status(200).send(result);
+    } catch (err) {
+      handleError(err);
+      if (err instanceof NotFound) {
+        res.status(404).send(err);
+      }
+      res.status(500).send(err);
+    }
+  });
+
+  app.get('/api/userprofile/:profile_id', async (req, res) => {
+    try {
+      const result = await Users.getByProfileId(req.params.profile_id);
       res.status(200).send(result);
     } catch (err) {
       handleError(err);

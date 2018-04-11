@@ -7,20 +7,6 @@ import { NotFound, AuthError } from '../lib/errors';
 import keys from '../../config/keys';
 
 export default class Users {
-  static async findOrCreate(model) {
-    let result;
-    try {
-      result = await Users.getByProfileId(model.profileId);
-    } catch (err) {
-      if (err instanceof NotFound) {
-        result = await Users.create(model);
-      } else {
-        throw err;
-      }
-    }
-    return result;
-  }
-
   static async create(model) {
     // Save user
     const newUser = {
