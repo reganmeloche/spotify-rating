@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
 // this is required for using async-await
 require('babel-polyfill');
@@ -13,9 +14,18 @@ app.set('port', (process.env.PORT || 7007));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-  res.status(200).json({ home: 'hello there' });
-});
+// Cors middleware
+if (keys.useCors) {
+  app.use((req, res, next) => {
+    if (req.path.indexOf('/api/user/') !== 0) {
+      if (!req.headers.referer || (req.headers.referer.indexOf(keys.webHost) !== 0)) {
+        res.status(400).send('CORS error');
+        return;
+      }
+    }
+    next();
+  });
+}
 
 // Middleware to add userId to request object
 app.use('/', (req, res, next) => {

@@ -29,7 +29,6 @@ export default function (app) {
 
   app.get('/api/rating/:rating_id', async (req, res) => {
     try {
-      console.log('USER', req.userId);
       const result = await Ratings.getById(req.userId, req.params.rating_id);
       res.status(200).send(result);
     } catch (err) {

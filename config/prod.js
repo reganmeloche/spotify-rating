@@ -4,4 +4,5 @@ module.exports = {
   spotifyRoot: 'https://api.spotify.com',
   clientId: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
+  useCors: process.env.USE_CORS,
 };
